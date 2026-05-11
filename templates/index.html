@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>{{ profile.name }} — Portfólio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"/>
+</head>
+<body>
+
+  <!-- ── NAV ── -->
+  <nav class="nav" id="nav">
+    <a class="nav__logo" href="#"><span></span></a>
+    <ul class="nav__links" id="navLinks">
+      <li><a href="#sobre">Sobre</a></li>
+      <li><a href="#projetos">Projetos</a></li>
+      <li><a href="#experiencia">Experiência</a></li>
+      <li><a href="#certificados">Certificados</a></li>
+      <li><a href="#contato" class="nav__cta">Contato</a></li>
+    </ul>
+    <button class="nav__burger" id="burger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- ── HERO ── -->
+  <section class="hero" id="inicio">
+    <div class="hero__bg">
+      <div class="blob blob--1"></div>
+      <div class="blob blob--2"></div>
+      <div class="grid-lines"></div>
+    </div>
+    <div class="hero__content">
+      <p class="hero__pre reveal">Hi there!</p>
+      <h1 class="hero__name reveal">{{ profile.name }}</h1>
+      <h2 class="hero__title reveal">{{ profile.title }}</h2>
+      <p class="hero__tagline reveal">{{ profile.tagline }}</p>
+      <div class="hero__actions reveal">
+        <a href="#projetos" class="btn btn--primary">Ver projetos</a>
+        <a href="#contato" class="btn btn--ghost">Fale comigo</a>
+      </div>
+      <div class="hero__social reveal">
+        <a href="{{ profile.github }}" target="_blank" aria-label="GitHub">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.7-.3-5.5-1.3-5.5-5.9 0-1.3.5-2.4 1.2-3.2 0-.4-.5-1.6.2-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17 6.1 18 6.4 18 6.4c.7 1.6.2 2.8.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.5.4.9 1.2.9 2.3v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .3"/></svg>
+        </a>
+        <a href="{{ profile.linkedin }}" target="_blank" aria-label="LinkedIn">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.5 2h-17A1.5 1.5 0 0 0 2 3.5v17A1.5 1.5 0 0 0 3.5 22h17a1.5 1.5 0 0 0 1.5-1.5v-17A1.5 1.5 0 0 0 20.5 2zM8 19H5v-9h3zM6.5 8.25A1.75 1.75 0 1 1 8.3 6.5a1.78 1.78 0 0 1-1.8 1.75zM19 19h-3v-4.74c0-1.42-.6-1.93-1.38-1.93A1.74 1.74 0 0 0 13 14.19a.66.66 0 0 0 0 .14V19h-3v-9h2.9v1.3a3.11 3.11 0 0 1 2.7-1.4c1.55 0 3.36.86 3.36 3.66z"/></svg>
+        </a>
+        <a href="mailto:{{ profile.email }}" aria-label="Email">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        </a>
+      </div>
+    </div>
+    <div class="hero__scroll">
+      <span>scroll</span>
+      <div class="hero__scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- ── SOBRE ── -->
+  <section class="section sobre" id="sobre">
+    <div class="container">
+      <div class="sobre__grid">
+        <div class="sobre__text reveal">
+          <span class="label">// sobre mim</span>
+          <h2 class="section__title">Quem é esse louco?</h2>
+          <p>{{ profile.about }}</p>
+          <p class="sobre__location">📍 {{ profile.location }}</p>
+          <p class="sobre__phone">📞 {{ profile.phone }}</p>
+          <a href="#contato" class="btn btn--primary" style="margin-top:1.5rem">Entrar em contato</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── PROJETOS ── -->
+  <section class="section projetos" id="projetos">
+    <div class="container">
+      <span class="label reveal">// projetos</span>
+      <h2 class="section__title reveal">Alguns projetos:</h2>
+      <div class="projetos__grid">
+        {% for p in projects %}
+        <article class="project-card reveal" style="--delay: {{ loop.index0 * 0.1 }}s">
+          <div class="project-card__emoji">{{ p.emoji }}</div>
+          <h3>{{ p.title }}</h3>
+          <p>{{ p.description }}</p>
+          <div class="project-card__tags">
+            {% for tag in p.tags %}
+            <span class="tag">{{ tag }}</span>
+            {% endfor %}
+          </div>
+          <a href="{{ p.link }}" class="project-card__link" target="_blank">
+            Ver projeto
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+        </article>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ── EXPERIÊNCIA ── -->
+  <section class="section exp" id="experiencia">
+    <div class="container">
+      <span class="label reveal">// trajetória</span>
+      <h2 class="section__title reveal">Experiência Profissional</h2>
+      <div class="timeline">
+        {% for e in experience %}
+        <div class="timeline__item reveal" style="--delay: {{ loop.index0 * 0.15 }}s">
+          <div class="timeline__dot"></div>
+          <div class="timeline__content">
+            <span class="timeline__period">{{ e.period }}</span>
+            <h3>{{ e.role }}</h3>
+            <span class="timeline__company">{{ e.company }}</span>
+            <p>{{ e.desc }}</p>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CERTIFICADOS ── -->
+  <section class="section certs" id="certificados">
+    <div class="container">
+      <span class="label reveal">// formação</span>
+      <h2 class="section__title reveal">Certificados & Formação</h2>
+
+      <div class="formacao">
+        <div class="formacao__item reveal">
+          <span class="formacao__badge">🎓</span>
+          <div>
+            <h3>Análise e Desenvolvimento de Sistemas</h3>
+            <span class="timeline__company">UNIPE — Centro Universitário de João Pessoa</span>
+            <span class="timeline__period" style="display:block;margin-top:.3rem">Jan 2026 — Cursando 1º Semestre</span>
+          </div>
+        </div>
+        <div class="formacao__item reveal">
+          <span class="formacao__badge">📜</span>
+          <div>
+            <h3>Ensino Médio Completo</h3>
+            <span class="timeline__company">Escola Estadual</span>
+            <span class="timeline__period" style="display:block;margin-top:.3rem">Concluído em 2022</span>
+          </div>
+        </div>
+      </div>
+
+      <h3 class="certs__sub reveal">Certificações</h3>
+      <div class="certs__grid">
+        {% for c in certificates %}
+        <div class="cert-card reveal">
+          <div class="cert-card__header">
+            <span class="cert-card__icon">🏅</span>
+            <span class="cert-card__hours">{{ c.hours }}</span>
+          </div>
+          <h4>{{ c.title }}</h4>
+          <span class="cert-card__inst">{{ c.institution }}</span>
+          <p>{{ c.desc }}</p>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CONTATO ── -->
+  <section class="section contato" id="contato">
+    <div class="container">
+      <div class="contato__inner reveal">
+        <span class="label">// contato</span>
+        <h2 class="section__title">Vamos conversar?</h2>
+        <p>Estou em busca da minha primeira oportunidade na área de TI. Me manda uma mensagem!</p>
+        <a href="mailto:{{ profile.email }}" class="contato__email">{{ profile.email }}</a>
+        <div class="contato__links">
+          <a href="{{ profile.github }}" target="_blank" class="btn btn--ghost">GitHub</a>
+          <a href="{{ profile.linkedin }}" target="_blank" class="btn btn--ghost">LinkedIn</a>
+          <a href="tel:{{ profile.phone }}" class="btn btn--ghost">{{ profile.phone }}</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ── -->
+  <footer class="footer">
+    <div class="container">
+      <p class="footer__copy">Nenhum direito reservado hehe</p>
+    </div>
+  </footer>
+
+  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
