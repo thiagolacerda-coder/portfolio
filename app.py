@@ -27,7 +27,7 @@ PROJECTS = [
         "title": "Portfólio Pessoal",
         "description": "Este site! Desenvolvido com Python e Flask, com design responsivo, animações CSS e dados dinâmicos servidos pelo backend.",
         "tags": ["Python", "Flask", "HTML", "CSS"],
-        "link": "#",
+        "link": "https://github.com/thiagolacerda-coder/portfolio",
         "emoji": "🌐",
     },
     {
